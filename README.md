@@ -25,3 +25,4 @@ Turns - How many turns
 Add the ability to edit players
 When creating a game, validate that the players exist
 Add the ability to declare a winner of a game
+Look into Alembic to manage database versioning
