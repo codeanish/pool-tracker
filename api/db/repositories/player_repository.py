@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from .models import player
-from .schemas import player as player_schema
+from db.models import player
+from db.schemas import player as player_schema
 
 def get_player(db: Session, player_id: int):
     return db.query(player.Player).filter(player.Player.id == player_id).first()

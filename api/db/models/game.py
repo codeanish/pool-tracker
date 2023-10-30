@@ -1,6 +1,6 @@
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import mapped_column
-from ..database import Base
+from db.database import Base
 
 class Game(Base):
     __tablename__ = "games"

@@ -1,10 +1,10 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
-from . import player_repository, game_repository
-# from . import game_repository
-from .schemas import player, game
-from .database import SessionLocal, engine, Base
+from db.repositories import player_repository
+from db.repositories import game_repository
+from db.schemas import player, game
+from db.database import SessionLocal, engine, Base
 
 Base.metadata.create_all(bind=engine)
 

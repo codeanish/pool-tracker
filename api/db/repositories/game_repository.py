@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from .models import game
-from .schemas import game as game_schema
+from db.models import game
+from db.schemas import game as game_schema
 
 def get_game(db: Session, game_id: int):
     return db.query(game.Game).filter(game.Game.id == game_id).first()
