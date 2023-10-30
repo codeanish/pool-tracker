@@ -11,5 +11,5 @@ class Game(Base):
     
     player_1_id = mapped_column(ForeignKey("players.id"))
     player_2_id = mapped_column(ForeignKey("players.id"))
-    breaking_player_id = mapped_column(ForeignKey("players.id"), nullable=True)
+    breaking_player_id = mapped_column(ForeignKey("players.id"))
     winner_id = mapped_column(ForeignKey("players.id"), nullable=True)

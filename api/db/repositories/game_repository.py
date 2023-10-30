@@ -10,7 +10,8 @@ def new_game(db: Session, new_game: game_schema.GameCreate):
         location=new_game.location, 
         date=new_game.date, 
         player_1_id=new_game.player_1_id, 
-        player_2_id=new_game.player_2_id
+        player_2_id=new_game.player_2_id,
+        breaking_player_id=new_game.breaking_player_id
         )
     db.add(db_game)
     db.commit()
