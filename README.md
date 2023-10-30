@@ -21,4 +21,7 @@ Players - Who plays
 Games - Wrapper for a collection of turns
 Turns - How many turns
 
-First step, lets add the player model and let us add/edit players
+## Next steps
+Add the ability to edit players
+Add the ability to declare a winner of a game
+Add the ability to set who breaks from the creation of a game
