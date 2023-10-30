@@ -45,3 +45,13 @@ def get_game(game_id: int, db: Session = Depends(get_db)):
 @app.post("/games/", response_model=game.Game)
 def create_game(new_game: game.GameCreate, db: Session = Depends(get_db)):
     return game_repository.new_game(db=db, new_game=new_game)
+
+@app.post("/games/{game_id}/winner", response_model=game.Game)
+def declare_winner(game_id: int, winner_id: int, db: Session = Depends(get_db)):
+    db_game = game_repository.get_game(db, game_id=game_id)
+    if db_game is None:
+        raise Exception("Game not found")
+    db_game.winner_id = winner_id
+    db.commit()
+    db.refresh(db_game)
+    return db_game
