@@ -1,5 +1,5 @@
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship, mapped_column
+from sqlalchemy.orm import mapped_column
 from ..database import Base
 
 class Game(Base):
@@ -9,10 +9,7 @@ class Game(Base):
     date = Column(DateTime, index=True)
     location = Column(String, index=True)
     
-    # How does this work in ORM world?
-    player_1_name = mapped_column(ForeignKey("players.name"))
-    player_1 = relationship(back_populates="child")
-    player_1_name = mapped_column(ForeignKey("players.name"))
-    player_2 = Column(String, index=True)
-    
-    winner = Column(String, index=True)
+    player_1_id = mapped_column(ForeignKey("players.id"))
+    player_2_id = mapped_column(ForeignKey("players.id"))
+    breaking_player_id = mapped_column(ForeignKey("players.id"), nullable=True)
+    winner_id = mapped_column(ForeignKey("players.id"), nullable=True)
