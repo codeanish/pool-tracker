@@ -23,5 +23,5 @@ Turns - How many turns
 
 ## Next steps
 Add the ability to edit players
+When creating a game, validate that the players exist
 Add the ability to declare a winner of a game
-Add the ability to set who breaks from the creation of a game
