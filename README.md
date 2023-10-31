@@ -21,6 +21,20 @@ Players - Who plays
 Games - Wrapper for a collection of turns
 Turns - How many turns
 
+## Database Migrations with Alembic
+As the model is incremented, we're going to run an alembic migration to take the following steps:
+
+1. Create a migration script
+2. Apply the migration to the database
+
+The creation of the migration script happens in the code editor using the command
+
+> alembic revision --autogenerate -m "Message"
+
+In order to create a revision, we need to point it to a live version of the database by ensuring it has the correct database URL. This is currently done through environment variables in the database.py script.
+
+Once the migration script has been created, I've baked in the application of the migration to the docker compose process. As the api container comes up, it applies any new migrations to the database. A version number is stored in the database to track the database version, and is changed every time there is a new version.
+
 ## Next steps
 Add the ability to edit players
 When creating a game, validate that the players exist
