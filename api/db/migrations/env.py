@@ -14,16 +14,13 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Set the Database URL so that it is read from environment variables and populated in alembic config
-# url = f"postgresql://{Config.POSTGRES_USER}:{Config.POSTGRES_PASSWORD}@{Config.POSTGRES_HOST}/{Config.POSTGRES_DB}"
-
-
 # add your model's MetaData object here
 # for 'autogenerate' support
-from db.database import Base, SQLALCHEMY_DATABASE_URL
+from db.database import Base
 target_metadata = Base.metadata
 
-config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
+from db.config import Config
+config.set_main_option("sqlalchemy.url", Config.DATABASE_URL)
 
 # target_metadata = None
 
