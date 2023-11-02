@@ -27,6 +27,7 @@ COPY ./db /app/db
 
 # Copy alembic.ini file to docker container - Used for migrations
 COPY alembic.ini /app/alembic.ini
+COPY ./alembic /app/alembic
 
 # Not important to have this here, as it's also being replicated in the docker compose, but incase it's instantiated by itself, it's good to have it here
 EXPOSE 8000

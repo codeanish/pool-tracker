@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db.database import SessionLocal
-from db.schemas.player import Player, PlayerCreate
+from db.schemas.player import Player, PlayerCreate, PlayerEdit
 from db.repositories import player_repository
 
 router = APIRouter(
@@ -30,3 +30,10 @@ def get_player(player_id: int, db: Session = Depends(get_db)):
 @router.post("/", response_model=Player)
 def create_player(new_player: PlayerCreate, db: Session = Depends(get_db)):
     return player_repository.new_player(db=db, new_player=new_player)
+
+@router.put("/{player_id}", response_model=Player)
+def update_player(player_id: int, player: PlayerEdit, db: Session = Depends(get_db)):
+    db_player = player_repository.get_player(db, player_id=player_id)
+    if db_player is None:
+        raise HTTPException(status_code=404, detail="Player not found")
+    return player_repository.update_player(db=db, player_id=player_id, player=player)

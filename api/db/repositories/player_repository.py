@@ -17,3 +17,15 @@ def new_player(db: Session, new_player: player_schema.PlayerCreate):
     db.refresh(db_player)
     return db_player
 
+def update_player(db: Session, player_id: int, player: player_schema.PlayerEdit):
+    db_player = get_player(db=db, player_id=player_id)
+    
+    if db_player is None:
+        return None
+    db_player.update(player)
+    # db_player.name = player.name
+    # db_player.email = player.email
+    db.commit()
+    db.refresh(db_player)
+    return db_player
+
