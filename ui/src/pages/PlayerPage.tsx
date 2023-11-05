@@ -12,21 +12,21 @@ const PlayerPage = () => {
 
     useEffect(() => {
         fetchPlayer();
-    },[]);
+    }, []);
 
     const fetchPlayer = async () => {
         console.log("fetchPlayer");
-        PlayerService.getPlayer(4).then((data) => {
+        PlayerService.getPlayer(1).then((data) => {
             setPlayer(data);
         })
     };
 
     return (
         <>
-        <PageHeader/>
-        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 sm:py-6 lg:py-8">
-            <h1>{player.name}</h1>
-        </div>
+            <PageHeader />
+            <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 sm:py-6 lg:py-8">
+                <h1>{player.name}</h1>
+            </div>
         </>
     )
 };
