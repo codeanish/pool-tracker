@@ -11,7 +11,7 @@ def get_all_players(db: Session, skip: int = 0, limit: int = 100):
     return db.query(player.Player).offset(skip).limit(limit).all()
 
 def new_player(db: Session, new_player: player_schema.PlayerCreate):
-    db_player = player.Player(name=new_player.name)
+    db_player = player.Player(name=new_player.name, email=new_player.email)
     db.add(db_player)
     db.commit()
     db.refresh(db_player)

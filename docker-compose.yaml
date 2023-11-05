@@ -28,3 +28,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  ui:
+    build: ./ui
+    container_name: ui
+    ports:
+      - 80:80
+    depends_on:
+      - api

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import Player from "../types/Player";
-import { useNavigate, useParams } from "react-router-dom";
 import PlayerService from "../services/PlayerService";
 
 const PlayerPage = () => {
@@ -10,19 +9,14 @@ const PlayerPage = () => {
         name: '',
         email: '',
     });
-    
-    // type CardParams = {
-    //     username: string;
-    // }
-    // const { username } = useParams<CardParams>();
-    // const navigate = useNavigate();
 
     useEffect(() => {
         fetchPlayer();
     },[]);
 
     const fetchPlayer = async () => {
-        PlayerService.getPlayer(1).then((data) => {
+        console.log("fetchPlayer");
+        PlayerService.getPlayer(4).then((data) => {
             setPlayer(data);
         })
     };
