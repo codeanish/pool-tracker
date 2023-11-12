@@ -1,7 +1,9 @@
 import axios from 'axios';
 import Player from '../types/Player';
 
-const baseUrl = 'http://localhost:8000/players';
+var baseUrl = import.meta.env.API_URL
+console.log(baseUrl)
+
 
 const getPlayer = async (id: number): Promise<Player> => {
     const response = await axios.get(`${baseUrl}/${id}`);

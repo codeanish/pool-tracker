@@ -16,7 +16,7 @@ const PlayerPage = () => {
 
     const fetchPlayer = async () => {
         console.log("fetchPlayer");
-        PlayerService.getPlayer(1).then((data) => {
+        PlayerService.getPlayer(6).then((data) => {
             setPlayer(data);
         })
     };

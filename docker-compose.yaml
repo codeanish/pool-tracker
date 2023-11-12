@@ -31,6 +31,8 @@ services:
   ui:
     build: ./ui
     container_name: ui
+    environment:
+      VITE_API_URL: http://api:8000/
     ports:
       - 80:80
     depends_on:
