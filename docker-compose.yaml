@@ -28,12 +28,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
-  ui:
-    build: ./ui
-    container_name: ui
-    environment:
-      VITE_API_URL: http://api:8000/
-    ports:
-      - 80:80
-    depends_on:
-      - api
+  # ui:
+    # build: ./ui
+    # container_name: ui
+    # environment:
+      # VITE_API_URL: http://api:8000/
+    # ports:
+      # - 80:80
+    # depends_on:
+      # - api

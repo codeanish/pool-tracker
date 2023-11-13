@@ -1,12 +1,12 @@
 import axios from 'axios';
 import Player from '../types/Player';
+import pooltrackerConfig from '../config';
 
-var baseUrl = import.meta.env.API_URL
-console.log(baseUrl)
+const baseUrl = pooltrackerConfig.baseUrl;
 
 
 const getPlayer = async (id: number): Promise<Player> => {
-    const response = await axios.get(`${baseUrl}/${id}`);
+    const response = await axios.get(`${baseUrl}/players/${id}`);
     return response.data;
 }
 
