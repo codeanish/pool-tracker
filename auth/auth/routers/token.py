@@ -23,7 +23,7 @@ def get_db():
         db.close()
 
 @router.post("/", response_model=Token)
-async def login(
+async def create_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Session = Depends(get_db)
 ):
     user_authenticated = authenticate_user(db=db, username=form_data.username, password=form_data.password)

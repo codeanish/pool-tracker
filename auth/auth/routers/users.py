@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter, Depends
 from auth.database import SessionLocal
 from auth.repositories import user_repository
@@ -21,4 +20,3 @@ router = APIRouter(
 @router.post("/", response_model=User)
 async def create_user(new_user: UserCreate, db: Session = Depends(get_db)):
     return user_repository.new_user(db=db, new_user=new_user)
-
