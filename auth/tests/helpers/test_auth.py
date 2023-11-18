@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 import pytest
-from auth.helpers.auth import create_access_token, get_password_hash, verify_password
+from auth.helpers.auth import create_access_token, verify_password
 from auth.schemas.token import TokenClaims
 from passlib.exc import UnknownHashError
 
