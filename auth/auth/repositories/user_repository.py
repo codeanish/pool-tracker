@@ -1,15 +1,11 @@
 from sqlalchemy.orm import Session
+from auth.exceptions.database_exceptions import UserNotFoundError
+from auth.helpers.auth import get_password_hash
 from auth.models.user import User
 
 from auth.schemas.user import UserCreate
-from passlib.context import CryptContext
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-def get_password_hash(password: str):
-    return pwd_context.hash(password)
-
-def new_user(db: Session, new_user: UserCreate):
+def new_user(db: Session, new_user: UserCreate) -> User:
     db_user = User(
         username=new_user.username,
         email=new_user.email,
@@ -20,3 +16,9 @@ def new_user(db: Session, new_user: UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def get_hashed_password_for_user(db: Session, username: str) -> str:
+    user = db.query(User.hashed_password).filter(User.username == username).one_or_none()
+    if user:
+        return user.hashed_password
+    raise UserNotFoundError(username)
