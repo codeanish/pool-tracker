@@ -36,6 +36,10 @@ In order to create a revision, we need to point it to a live version of the data
 Once the migration script has been created, I've baked in the application of the migration to the docker compose process. As the api container comes up, it applies any new migrations to the database. A version number is stored in the database to track the database version, and is changed every time there is a new version.
 
 ## Next steps
-Add the ability to edit players
-When creating a game, validate that the players exist
-Add the ability to declare a winner of a game
+* Complete create token API
+* Add a verify user token API
+* Use private key for creating a token
+* Use public key for decoding a token
+* Add the ability to edit players
+* When creating a game, validate that the players exist
+* Add the ability to declare a winner of a game
