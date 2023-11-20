@@ -23,12 +23,7 @@ def create_access_token(claims: TokenClaims):
     encoded_jwt = jwt.encode(claims.dict(), get_private_key(), algorithm=Config.ALGORITHM) # type: ignore
     return encoded_jwt
 
-def get_private_key():
+def get_private_key() -> str:
     with open(Config.PRIVATE_KEY_FILE) as pem_file:
         private_key = pem_file.read()
     return private_key
-
-def get_public_key():
-    with open(Config.PUBLIC_KEY_FILE) as pem_file:
-        public_key = pem_file.read()
-    return public_key
