@@ -20,5 +20,15 @@ def create_access_token(claims: TokenClaims):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     claims.exp = expire
-    encoded_jwt = jwt.encode(claims.dict(), Config.SECRET_KEY, algorithm=Config.ALGORITHM) # type: ignore
+    encoded_jwt = jwt.encode(claims.dict(), get_private_key(), algorithm=Config.ALGORITHM) # type: ignore
     return encoded_jwt
+
+def get_private_key():
+    with open(Config.PRIVATE_KEY_FILE) as pem_file:
+        private_key = pem_file.read()
+    return private_key
+
+def get_public_key():
+    with open(Config.PUBLIC_KEY_FILE) as pem_file:
+        public_key = pem_file.read()
+    return public_key
