@@ -5,7 +5,7 @@ import requests
 
 # Needs to return a JWKS type
 def get_public_jwks():
-    response = requests.get(f"{Config.PUBLIC_KEYS_URL}/.well-known/jwks.json")
+    response = requests.get(f"{Config.PUBLIC_KEYS_URL}")
     return response.json()
 
 # def validate_token(token: str):

@@ -4,9 +4,9 @@ from db.auth import validate_auth
 
 
 router = APIRouter(
-    prefix="/games",
+    prefix="/auth",
 )
 
-@router.get("/", response_model=JSONResponse)
+@router.get("/")
 def get_jwks():
-    return validate_auth.get_public_jwks()
+    return JSONResponse(validate_auth.get_public_jwks())
