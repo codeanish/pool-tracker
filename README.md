@@ -43,3 +43,12 @@ Once the migration script has been created, I've baked in the application of the
 * Add the ability to edit players
 * When creating a game, validate that the players exist
 * Add the ability to declare a winner of a game
+
+
+
+## TODO:
+
+* Ensure I have the swagger docs locally
+* UI calls the auth service to ask for a token
+* UI sends the token to the API
+* API validates the token against the public key

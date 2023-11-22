@@ -3,9 +3,9 @@ version: '3.9'
 services:
   auth_db:
     image: postgres:16-alpine
-    container_name: auth_postgres
-    ports:
-      - 5432:5432
+    container_name: auth-db
+    # ports:
+    #   - 5432:5432
     volumes:
       - ~/data/auth_postgres:/var/lib/postgresql/data
     env_file:
@@ -17,7 +17,7 @@ services:
       retries: 5
   auth_api:
     build: ./auth
-    container_name: auth_api
+    container_name: auth-api
     command: bash -c "alembic upgrade head && uvicorn auth.main:app --host 0.0.0.0 --port 8000"
     ports:
       - 8000:8000
@@ -28,39 +28,39 @@ services:
     depends_on:
       auth_db:
         condition: service_healthy
-  # db:
-  #   image: postgres:16-alpine
-  #   container_name: postgres
-  #   ports:
-  #     - 5432:5432
-  #   volumes:
-  #     - ~/data/postgres:/var/lib/postgresql/data
-  #   env_file:
-  #     .env
-  #   healthcheck:
-  #     test: ["CMD", "pg_isready", "-d", "pool_db", "-U", "pool_user"]
-  #     interval: 5s
-  #     timeout: 5s
-  #     retries: 5
-  # api:
-  #   build: ./api
-  #   container_name: api
-  #   command: bash -c "alembic upgrade head && uvicorn db.main:app --host 0.0.0.0 --port 8000"
-  #   ports:
-  #     - 8000:8000
-  #   environment:
-  #     - POSTGRES_HOST=db
-  #   env_file:
-  #     .env
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  # ui:
-    # build: ./ui
-    # container_name: ui
-    # environment:
-      # VITE_API_URL: http://api:8000/
+  db:
+    image: postgres:16-alpine
+    container_name: pool-db
     # ports:
-      # - 80:80
-    # depends_on:
-      # - api
+    #   - 5433:5432
+    volumes:
+      - ~/data/postgres:/var/lib/postgresql/data
+    env_file:
+      .env
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "pool_db", "-U", "pool_user"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  api:
+    build: ./api
+    container_name: pool-api
+    command: bash -c "alembic upgrade head && uvicorn db.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - 8080:8000
+    environment:
+      - POSTGRES_HOST=db
+    env_file:
+      .env
+    depends_on:
+      db:
+        condition: service_healthy
+  ui:
+    build: ./ui
+    container_name: pool-ui
+    environment:
+      VITE_API_URL: http://api:8080/
+    ports:
+      - 80:80
+    depends_on:
+      - api
