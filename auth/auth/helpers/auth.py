@@ -1,6 +1,7 @@
 from datetime import timedelta
 from passlib.context import CryptContext
-from jose import jwt
+# from jose import jwt
+import jwt
 from datetime import datetime, timedelta
 from auth.config import Config
 from auth.schemas.token import TokenClaims
@@ -20,7 +21,7 @@ def create_access_token(claims: TokenClaims):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     claims.exp = expire
-    encoded_jwt = jwt.encode(claims.dict(), get_private_key(), algorithm=Config.ALGORITHM) # type: ignore
+    encoded_jwt = jwt.encode(claims.dict(), get_private_key(), algorithm=Config.ALGORITHM, headers={"kid": "210M5Xc1rPDUfJ--3V-sZr12XfgAC7LN67spc14_s0A"}) # type: ignore
     return encoded_jwt
 
 def get_private_key() -> str:
