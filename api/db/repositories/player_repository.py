@@ -6,6 +6,8 @@ from db.schemas import player as player_schema
 def get_player(db: Session, player_id: int):
     return db.query(player.Player).filter(player.Player.id == player_id).first()
 
+def get_player_by_username(db: Session, username: str):
+    return db.query(player.Player).filter(player.Player.name == username).first()
 
 def get_all_players(db: Session, skip: int = 0, limit: int = 100):
     return db.query(player.Player).offset(skip).limit(limit).all()

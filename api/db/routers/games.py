@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from db.auth.jwt_bearer import JWTBearer
 from db.database import SessionLocal
 from db.schemas.game import Game, GameCreate
 from db.repositories import game_repository
@@ -16,18 +17,18 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/{game_id}", response_model=Game)
+@router.get("/{game_id}", response_model=Game, dependencies=[Depends(JWTBearer())])
 def get_game(game_id: int, db: Session = Depends(get_db)):
     db_game = game_repository.get_game(db, game_id=game_id)
     if db_game is None:
         raise HTTPException(status_code=404, detail="Game not found")
     return db_game
 
-@router.post("/", response_model=Game)
+@router.post("/", response_model=Game, dependencies=[Depends(JWTBearer())])
 def create_game(new_game: GameCreate, db: Session = Depends(get_db)):
     return game_repository.new_game(db=db, new_game=new_game)
 
-@router.post("/{game_id}/winner", response_model=Game)
+@router.post("/{game_id}/winner", response_model=Game, dependencies=[Depends(JWTBearer())])
 def declare_winner(game_id: int, winner_id: int, db: Session = Depends(get_db)):
     db_game = game_repository.get_game(db, game_id=game_id)
     if db_game is None:

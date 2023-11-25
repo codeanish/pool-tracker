@@ -23,6 +23,13 @@ def validate_token(token: str):
         print(err)
         return False
 
+def get_user_from_token(token:str):
+    payload = validate_token(token)
+    if payload:
+        return payload['sub']
+    else:
+        return None
+
 
 if __name__ == "__main__":
     print(validate_token("eyJhbGciOiJSUzI1NiIsImtpZCI6IjIxME01WGMxclBEVWZKLS0zVi1zWnIxMlhmZ0FDN0xONjdzcGMxNF9zMEEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJ0ZXN0MSIsImV4cCI6MTcwMDc0NTQxOH0.gWsFQ9lLgoH-sJGdOkNih6TBOIoF0Dw6OE8mHrcljdjRVlSdJ0FrWoxjOm3Sm6YWLg5lPtTxweo5Ti_K26w_Hqsxb0H3jk2wFVNN9y2u8Q_VQWGjKKXoaEcvJ9GPgowfZHzMmRDMInhSem2JqSj9PCaCTgI7LWnj13t-2dMkN_lPvdhWq3QH7IpPdUDKYBBGRaP8L6mc7JEoToQr5bLxY2sBcJhFt0NcyOxxj7ev4gL0whEAbxfLiY-IN3suzTPF7FUOSMlkCZDHPHLR-itx0Ze48nz_jEEPbJr4-s28hM65EcPrYBx5LgtxBmNGlqy75zJ2PmuhpQzVIAuJ5nmMvw"))
