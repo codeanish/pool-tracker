@@ -52,3 +52,17 @@ Once the migration script has been created, I've baked in the application of the
 * UI calls the auth service to ask for a token
 * UI sends the token to the API
 * API validates the token against the public key
+
+## User flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Auth
+    participant Pool API
+    User->>Auth: Create User
+    User->>Pool API: Create profile
+    Pool API-->>Auth: Validate User
+    User->>Pool API: Get Player
+    User->>Pool API: Create game
+```

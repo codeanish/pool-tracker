@@ -34,9 +34,9 @@ def get_current_player(creds: HTTPAuthorizationCredentials = Depends(JWTBearer()
         raise HTTPException(status_code=404, detail="Player not found")
     return db_player
 
-@router.get("/{player_id}", response_model=Player, dependencies=[Depends(JWTBearer())])
-def get_player(player_id: int, db: Session = Depends(get_db)):
-    db_player = player_repository.get_player(db, player_id=player_id)
+@router.get("/{username}", response_model=Player, dependencies=[Depends(JWTBearer())])
+def get_player(username: str, db: Session = Depends(get_db)):
+    db_player = player_repository.get_player_by_username(db, username=username)
     if db_player is None:
         raise HTTPException(status_code=404, detail="Player not found")
     return db_player
@@ -45,9 +45,10 @@ def get_player(player_id: int, db: Session = Depends(get_db)):
 def create_player(new_player: PlayerCreate, db: Session = Depends(get_db)):
     return player_repository.new_player(db=db, new_player=new_player)
 
-@router.put("/{player_id}", response_model=Player, dependencies=[Depends(JWTBearer())])
-def update_player(player_id: int, player: PlayerEdit, db: Session = Depends(get_db)):
-    db_player = player_repository.get_player(db, player_id=player_id)
+# TODO: Make sure that the player is the one who is updating their own profile
+@router.put("/{username}", response_model=Player, dependencies=[Depends(JWTBearer())])
+def update_player(username: str, player: PlayerEdit, db: Session = Depends(get_db)):
+    db_player = player_repository.get_player_by_username(db, username=username)
     if db_player is None:
         raise HTTPException(status_code=404, detail="Player not found")
-    return player_repository.update_player(db=db, player_id=player_id, player=player)
+    return player_repository.update_player(db=db, username=username, player=player)
